@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html style="font-size: 16px;" lang="en"><head>
+    <script type="text/javascript" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Post 1 Headline">
+    <meta name="description" content="">
+    <title>Intro to Variational AutoEncoder</title>
+    <link rel="stylesheet" href="../nicepage.css" media="screen">
+<link rel="stylesheet" href="../Post-Template.css" media="screen">
+    <script class="u-script" type="text/javascript" src="../jquery.js" defer=""></script>
+    <script class="u-script" type="text/javascript" src="../nicepage.js" defer=""></script>
+    <meta name="generator" content="Nicepage 5.13.1, nicepage.com">
+    <link rel="icon" href="../images/Screenshot2024-08-14at23.29.00.png">
+    <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
+    
+    
+    <script type="application/ld+json">{
+		"@context": "http://schema.org",
+		"@type": "Organization",
+		"name": "Site1"
+}</script>
+    <meta name="theme-color" content="#478ac9">
+  <meta data-intl-tel-input-cdn-path="intlTelInput/"></head>
+  <body class="u-body u-xl-mode" data-lang="en"><header class="u-clearfix u-custom-color-1 u-header u-header" id="sec-24b5"><div class="u-clearfix u-sheet u-sheet-1">
+        <h4 class="u-text u-text-default u-text-1">OWAN</h4>
+        <h4 class="u-text u-text-default u-text-2">Everyday learning</h4>
+        <nav class="u-menu u-menu-one-level u-offcanvas u-menu-1">
+          <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px; font-weight: 700;">
+            <a class="u-button-style u-custom-border u-custom-border-color u-custom-borders u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-text-color u-custom-top-bottom-menu-spacing u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="#">
+              <svg class="u-svg-link" viewBox="0 0 24 24"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#menu-hamburger"></use></svg>
+              <svg class="u-svg-content" version="1.1" id="menu-hamburger" viewBox="0 0 16 16" x="0px" y="0px" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"><g><rect y="1" width="16" height="2"></rect><rect y="7" width="16" height="2"></rect><rect y="13" width="16" height="2"></rect>
+</g></svg>
+            </a>
+          </div>
+          <div class="u-custom-menu u-nav-container">
+            <ul class="u-nav u-spacing-20 u-unstyled u-nav-1"><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" href="../Home.html" style="padding: 10px;">Home</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-2-base" href="../blog/blog.html" target="_blank" style="padding: 10px;">Blog</a>
+</li></ul>
+          </div>
+          <div class="u-custom-menu u-nav-container-collapse">
+            <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
+              <div class="u-inner-container-layout u-sidenav-overflow">
+                <div class="u-menu-close"></div>
+                <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2"><li class="u-nav-item"><a class="u-button-style u-nav-link" href="../Home.html">Home</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="../blog/blog.html" target="_blank">Blog</a>
+</li></ul>
+              </div>
+            </div>
+            <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
+          </div>
+        </nav>
+      </div></header>
+    <section class="u-align-center u-clearfix u-section-1" id="sec-b822">
+      <div class="u-clearfix u-sheet u-valign-middle-md u-valign-middle-sm u-valign-middle-xs u-sheet-1"><!--post_details--><!--post_details_options_json--><!--{"source":""}--><!--/post_details_options_json--><!--blog_post-->
+        <div class="u-container-style u-expanded-width u-post-details u-post-details-1">
+          <div class="u-container-layout u-valign-middle u-container-layout-1"><!--blog_post_image-->
+            <img alt="" class="u-blog-control u-expanded-width u-image u-image-default u-image-1" src="../images/images.png"><!--/blog_post_image--><!--blog_post_header-->
+            <h2 class="u-blog-control u-text u-text-1">Intro to Variational AutoEncoder</h2><!--/blog_post_header--><!--blog_post_metadata-->
+            <div class="u-blog-control u-metadata u-metadata-1"><!--blog_post_metadata_date-->
+              <span class="u-meta-date u-meta-icon">Aug 26, 2024</span><!--/blog_post_metadata_date--><!--blog_post_metadata_category-->
+              <!--/blog_post_metadata_category--><!--blog_post_metadata_comments-->
+              <!--/blog_post_metadata_comments-->
+            </div><!--/blog_post_metadata--><!--blog_post_content-->
+            <!--/blog_post_content-->
+            <head>
+<script type="text/javascript" async 
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+
+<p><b><font size="6">Variational Autoencoders</font></b> <br />
+
+<b>1. Intro</b> 
+
+Suppose we accumulate the dataset whose underlying (unknown) true distribution is characterized by \( p^{*}(\mathbf{x}) \) where \( \mathbf{x} \) is high-dimensional vector. Generally we will never realize such \( p \) in any exact analytical form for real application. So we resort to approximate to function \( p_{\theta }(\mathbf{x}) \) parametrized by \( \theta \), meaning that we aim to minimize some distance between \( p_{\theta } \) and \( p^{*} \). Often we are interested in conditional version of the model \( p_{\theta }(\mathbf{x} |\mathbf{z}) \) as oppose to just \( p_{\theta }(\mathbf{x}) \). This variable is refer to as latent construct which is the unobservable process shared among data point (latent is not part of the dataset). Our interest is to find the marginalized likelihood \( p_{\theta }(\mathbf{x}) \) which involve integrating out over all latent variable \( \mathbf{z} \). This is the intractable problem as \( \mathbf{z} \) is never know and the high-dimensionality nature, so we have no analytical formula. If we use normal Guassian or discrete categorical distribution, analytical marginal form exists. However, we often aim to compute complex function, e.g. video or image generation. This also means that the posterior \( p_{\theta }(\mathbf{z} |\mathbf{x}) \) will also be intractable as this is linked by
+
+</p>
+
+<p>
+\[
+\mathnormal{p_{\theta }(}\mathbf{z|x}\mathnormal{) =\frac{p_{\theta }(\mathbf{x,z})}{M}}\text{\ ,\ where} \ M=\ p_{\theta }(\mathbf{x}) =\int _{z\in Z} p_{\theta }(\mathbf{x} ,\mathbf{z}) d\mathbf{z}
+\]
+</p>
+
+<p>
+Since \( p_{\theta } \) will never be known, we resort to approximate \( q_{\theta } \) which is typical Universal function approximator like Neural Network. <i>Variational AutoEncoder</i> (VA) operates with closed framework to generic <i>AutoEncoder</i> (AE). Roughly speaking, AE comprises two main structure: encoder \( g_{\alpha } \) whose function is to compress original data input \( \mathbf{x} \) to some lower-dimensional latent representation \( \mathbf{z} \), and the decoder \( w_{\omega } \) whose job is to project this compressed version of inputs \( \mathbf{z} \) back to original inputs \( \mathbf{x}^{*} =w_{\omega }( g_{\alpha }(\mathbf{x})) \) while minimizing the reconstruction error typically via Euclidean distance loss. Some variant to this is Denoising AE where the original inputs are partially corrupted though random perturbation before feeding the encoder to avoid overfitting. Contrary to AE, VA is rooted from the method of graphical model:
+</p>
+
+<p>
+\[
+p_{\theta }(\mathbf{z} |\mathbf{x}) =p_{\theta }( z_{0} ,z_{1} ,...|\mathbf{x}) =p_{\theta }( z_{< N} |\mathbf{x}) =\prod{}_{n\in N} p_{\theta }( z_{n} |\mathrm{Parent}( z_{n}) ,\mathbf{x})
+\]
+</p>
+
+<p>
+Where each term is conditioned by parents of \( z_{n}\). Instead of mapping the vector input into a fixed point, VA map it to some distribution while retaining the encoder-decoder structure. We never know each term in the product, rather we try to find \( q_{\lambda } \approx p_{\theta } \). Suppose that we have true optimal parameter 
+</p>
+
+<p>
+\[
+\ \lambda ^{*} =\arg\max_{\lambda }\prod{}_{n\in N} q_{\lambda }(\mathbf{x}_{n})\rightarrow \arg\max_{\lambda }\sum{}_{n\in N}\log q_{\lambda }(\mathbf{x}_{n})
+\]
+</p>
+
+<p>
+which maximize the probability of seeing the true sample set from the model \( q_{\lambda } \), we first sample \( \mathbf{z} \) from prior distribution \( q_{\lambda ^{*}}(\mathbf{z}) \) in the \( \mathbf{z} \)-space, e.g. \( z\sim \mathcal{N}( 0,1) \), after that the value of \( \mathbf{x}_{n} \) is generated by conditional \( p_{\theta }(\mathbf{x|z}) \). This conditional defines the generative process, similar to decoder \( w_{\omega } \) that map latent space to data space. Similarly, we also have probabilistic encoder or posterior that decode the latent variable \( p_{\theta }(\mathbf{z |x}) \), and we already have seen that this quantity is impractically to obtain. We first write the evidence of the observed variables, \( \log p_{\theta }(\mathbf{x}) \) as
+</p>
+
+<p>
+\[
+\log p_{\theta }(\mathbf{x}) =\log p_{\theta }(\mathbf{x})\int _{\mathbf{z}} q_{\lambda }(\mathbf{z|x}) d\mathbf{z} =\log\int _{\mathbf{z}} p_{\theta }(\mathbf{x} ,\mathbf{z}) d\mathbf{z} =
+\]
+</p>
+
+<p>
+\[
+\log\int _{\mathbf{z}} q_{\lambda }(\mathbf{z|x})\frac{p_{\theta }(\mathbf{x} ,\mathbf{z})}{q_{\lambda }(\mathbf{z|x})} d\mathbf{z} =\log\mathbb{E}_{\mathbf{z} \sim q_{\lambda }(\mathbf{z|x})}\left[\frac{p_{\theta }(\mathbf{x} ,\mathbf{z})}{q_{\lambda }(\mathbf{z|x})}\right] \geqslant \mathbb{E}_{\mathbf{z} \sim q_{\lambda }(\mathbf{z|x})}\left[\log\frac{p_{\theta }(\mathbf{x} ,\mathbf{z})}{q_{\lambda }(\mathbf{z|x})}\right]
+\]
+</p>
+
+<p>
+\[
+=\mathbb{E}_{\mathbf{z} \sim q_{\lambda }(\mathbf{z|x})}[\log p_{\theta }(\mathbf{x} ,\mathbf{z})] -\mathbb{E}_{\mathbf{z} \sim q_{\lambda }(\mathbf{z|x})}[\log q_{\lambda }(\mathbf{z|x})]
+\]
+</p>
+
+<p>
+\[
+=\mathbb{E}_{\mathbf{z} \sim q_{\lambda }(\mathbf{z|x})}[\log p_{\theta }(\mathbf{x} ,\mathbf{z})] + H[ q_{\lambda }(\mathbf{z|x})] \ =L
+\]
+</p>
+
+<p>
+where \(  H\) is the entropy, describing the uncertainty of variational distribution \( q_{\lambda }(\mathbf{z|x}) \). When maximize \( \log p_{\theta }(\mathbf{x}) \), the first expectation is the weighted average over all possible value of \( \mathbf{z} \) with weight \( q_{\lambda }(\mathbf{z|x}) \), and the natural choice of \( q_{\lambda }(\mathbf{z|x}) \) that maximize \( \mathbb{E}_{\mathbf{z} \sim q_{\lambda }(\mathbf{z|x})}[\log p_{\theta }(\mathbf{x} ,\mathbf{z})] \) would be the distribution that put all its weight to the largest fixed data point \( \mathbf{z} \), which is what Dirac Delta distribution exactly does. It put weight of 1 to largest \( p_{\theta }(\mathbf{x} ,\mathbf{z}) \), and 0 for the raise of data point. However, this becomes problematic when consider the second term, the entropy of this distribution \( q_{\lambda }(\mathbf{z|x}) \) represents no uncertainty, e.g. approaching \( -\inf \)(This can be seen by consider Gaussian \( x\sim \mathcal{N}( x_{0} -\mu ,x_{0} +\mu ) \), then as \( \mu \rightarrow 0 \), the entropy \( \mathbb{E}_{x}[ 1/p( x)] =\log( 2\mu )\xrightarrow{\mu \rightarrow 0} -\inf \)). In other word, when maximizing the evidence \( \log p_{\theta }(\mathbf{x}) \), we want to have distribution that fit to the peak of joint distribution but also spread as wide as possible, e.g. high entropy. The objective \( L \) is called evidence lower bound (ELBO), which can be rewritten as 
+</p>
+
+<p>
+\[
+L =\mathbb{E}_{\mathbf{z} \sim q_{\lambda }(\mathbf{z|x})}\left[\log\frac{p_{\theta }(\mathbf{x} ,\mathbf{z})}{q_{\lambda }(\mathbf{z|x})}\right] =\mathbb{E}_{\mathbf{z} \sim q_{\lambda }(\mathbf{z|x})}\left[\log\frac{p_{\theta }(\mathbf{x|z}) p_{\theta }(\mathbf{z})}{q_{\lambda }(\mathbf{z|x})}\right]
+\]
+</p>
+
+<p>
+\[
+=\mathbb{E}_{\mathbf{z} \sim q_{\lambda }(\mathbf{z|x})}[\log p_{\theta }(\mathbf{x|z})] -D_{KL}[ q_{\lambda }(\mathbf{z|x}) ||p_{\theta }(\mathbf{z})]
+\]
+</p>
+
+<p>
+As the KL-divergence term approaches zero, we obtain the posterior \( q_{\lambda }(\mathbf{z|x}) \) very closed to prior \( p_{\theta }(\mathbf{z}) \), and the first term is that we draw a latent variable \( \mathbf{z} \) from posterior \( q_{\lambda }(\mathbf{z|x}) \) to construct observation \( \mathbf{x} \). Similar to AE, we try to optimize reconstruction error (KL-divergence) of the probabilistic encoder \( q_{\lambda }(\mathbf{z|x}) \) that encode \( \mathbf{x} \) to \( \mathbf{z} \), and \( p_{\theta }(\mathbf{x|z}) \) is viewed as decoder that maps the latent representation \( \mathbf{z} \) to observation space \( \mathbf{x} \). To sum up, the ELBO, \( L \leqslant \log p_{\theta }(\mathbf{x}) \), and optimizing this will push the evidence up. Recall that we try to approximate variational posterior \( q_{\lambda }(\mathbf{z} |\mathbf{x}) \) for true \( p_{\theta }(\mathbf{z|x}) \), for this we introduce a stochastic encoder \( q_{\lambda }(\mathbf{z} |\mathbf{x}) \) aiming to estimate the true intractable \( p_{\theta }(\mathbf{z |x}) \) though KL-divergence, where here we measure the amount of information loss if we use \( q \) to represent true distribution \( p \), \( \mathnormal{D}_{KL}[ q_{\lambda }(\mathbf{z} |\mathbf{x}) ||p_{\theta }(\mathbf{z|x})] \):
+</p>
+
+<p>
+\[
+\mathnormal{D}_{KL}[ q_{\lambda }(\mathbf{z} |\mathbf{x}) ||p_{\theta }(\mathbf{z|x})] =-\int _{z} q_{\lambda }(\mathbf{z} |\mathbf{x})\log\frac{p_{\theta }(\mathbf{z,x})}{p_{\theta }(\mathbf{x})}\frac{1}{q_{\lambda }(\mathbf{z} |\mathbf{x})} d\mathbf{z}
+\]
+</p>
+
+<p>
+\[
+=-\int _{z} q_{\lambda }(\mathbf{z} |\mathbf{x})\log\frac{p_{\theta }(\mathbf{z,x})}{q_{\lambda }(\mathbf{z} |\mathbf{x})} +\log p_{\theta }(\mathbf{x})\int _{z} q_{\lambda }(\mathbf{z} |\mathbf{x}) d\mathbf{z}
+\]
+</p>
+
+<p>
+\[
+=-\int _{z} q_{\lambda }(\mathbf{z} |\mathbf{x})\log\frac{p_{\theta }(\mathbf{z,x})}{q_{\lambda }(\mathbf{z} |\mathbf{x})} +\log p_{\theta }(\mathbf{x}) =-\mathbb{E}_{\mathbf{z} \sim q_{\lambda }(\mathbf{z|x})}\left[\log\frac{p_{\theta }(\mathbf{x|z}) p_{\theta }(\mathbf{z})}{q_{\lambda }(\mathbf{z|x})}\right] +\log p_{\theta }(\mathbf{x})
+\]
+</p>
+
+<p>
+\[
+=-L +\log p_{\theta }(\mathbf{x})
+\]
+</p>
+
+<p>
+Thus,
+</p>
+
+<p>
+\[
+\log p_{\theta }(\mathbf{x}) =L +\mathnormal{D}_{KL}[ q_{\lambda }(\mathbf{z} |\mathbf{x}) ||p_{\theta }(\mathbf{z|x})]
+\]
+</p>
+
+<p>
+The KL-divergence term \( \mathnormal{D}_{KL}[ q_{\lambda }(\mathbf{z} |\mathbf{x}) ||p_{\theta }(\mathbf{z|x})] \) determines the distance of the approximated posterior with true one, and also determine the distance of the ELBO and marginal likelihood \( \log p_{\theta }(\mathbf{x}) \). Furthermore, equation (14) suggests that when maximizing ELBO, \( L \), we concurrently minimize the KL-divergence of the two posterior distributions, and also maximizing the marginal likelihood of the true data being generated. Optimizing ELBO via stochastic gradient descent, although its Monte Carlo estimator \( \nabla _{\lambda }\mathbb{E}_{q_{\lambda }(\mathbf{z} |\mathbf{x})}[ f(\mathbf{z})] \) is unbiased, it exhibits high variance. Plus, generic backpropagation will not work, since the sample \( \mathbf{z} \) is obtained stochastically \( \mathbf{z} \ \sim \ q_{\lambda }(\mathbf{z} |\mathbf{x}) \). So we need reparametrization by expressing random variable \( \mathbf{z} \) as deterministic variable of some function \( \ \mathbf{z} =g_{\lambda }( x,\epsilon ) \), where \( \epsilon \) is an auxiliary independent random variable and a transformation function \( g_{\lambda } \) parameterized by \( \lambda \) converting \( \epsilon \) to \( \mathbf{z} \). For instance, we can sample \( \epsilon \ \sim \ \mathcal{N}( 0,I ) \), and element-wise dot product transform \( g_{z} =\mu +\sigma \odot \epsilon \). This we make model trainable by learning the mean \( \mu \) and variance \( \sigma \), and retaining the stochasticity in \( \epsilon \).
+</p>
+
+    <p><strong>Example</strong></p>
+    <p>
+    Suppose we use exponential distribution as a prior (one-dimensional case), \( \displaystyle z\ \sim \ f_{\exp}( z;\lambda =1)\), where we use fixed hyperparameter \( \displaystyle \lambda \) and \( \displaystyle z\) is nonnegative, and also a normal distribution as likelihood function \( \displaystyle x\ \sim \ \mathcal{N}( x;\mu =z,\ \sigma =1)\) conditioned on \( \displaystyle z\). The generated dataset is the most simplest case, drawing from Gaussian distribution with latent variable drawned from exponential distribution. The prior \( \displaystyle p( z)\) and joint \( \displaystyle p( x,z) =p( z) p( x|z)\) is easily evaluated in closed form. But our goal, again, is knowing the posterior \( \displaystyle p( z|x)\), the underlying latent variable that generate the dataset. In real world, this could be binary labels describing the image. We can write down the posterior explicitly:
+    </p>
+    <p>
+    \[
+    p( z) =\exp( -z)
+    \]
+    \[
+    p( x|z) =\frac{1}{\sqrt{2\pi }}\exp\left( -( x-z)^{2} /2\right)
+    \]
+    \[
+    p( x,z) =p( x) p( x|z)
+    \]
+    \[
+    p( x) =\int _{0}^{\infty }\exp( -z)\frac{1}{\sqrt{2\pi }}\exp\left( -( x-z)^{2} /2\right) dz
+    \]
+    </p>
+    <p>
+    Even the most simple case, the marginal \( \displaystyle p( x)\) is even hard to compute: one integral for one-dimensional \( \displaystyle z\). Now, we still can make inference \( \displaystyle p( z|x)\) by plugging the observed data point \( \displaystyle x\).
+    </p>
+          </div>
+        </div><!--/blog_post--><!--/post_details-->
+      </div>
+    </section>
+    
+    
+    <footer class="u-align-center u-clearfix u-footer u-grey-80 u-hidden u-footer" id="sec-f579"><div class="u-clearfix u-sheet u-sheet-1">
+        <p class="u-small-text u-text u-text-variant u-text-1">Sample text. Click to select the Text Element.</p>
+      </div></footer>
+    <section class="u-backlink u-clearfix u-grey-80">
+      <a class="u-link" href="https://nicepage.com/website-templates" target="_blank">
+        <span>Website Templates</span>
+      </a>
+      <p class="u-text">
+        <span>created with</span>
+      </p>
+      <a class="u-link" href="" target="_blank">
+        <span>Website Builder Software</span>
+      </a>. 
+    </section>
+  
+</body></html>
